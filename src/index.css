@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+  --color-dark-bg: #121212;
+  --color-dark-card: #1e1e1e;
+  --color-dark-border: #2d2d2d;
+}
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-gray-100 antialiased selection:bg-orange-500 selection:text-white;
+  }
+}
