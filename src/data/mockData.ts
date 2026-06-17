@@ -1,3 +1,31 @@
+export interface Equipment {
+  id: string;
+  name: string;
+  location: string;
+  model: string;
+  lastServiceDate?: string;
+  lastServiceType?: 'A' | 'C';
+}
+
+export const mockEquipment: Equipment[] = [
+  {
+    id: 'EQ-001',
+    name: 'Rulltrappa 1 (Upp)',
+    location: 'Terminal 3, Gate A8',
+    model: 'OTIS 510-E',
+    lastServiceDate: '2023-10-14',
+    lastServiceType: 'A'
+  },
+  {
+    id: 'EQ-002',
+    name: 'Rulltrappa 2 (Ner)',
+    location: 'Central Station, North Exit',
+    model: 'KONE TravelMaster',
+    lastServiceDate: '2023-09-02',
+    lastServiceType: 'C'
+  }
+];
+
 export interface MaintenanceTask {
   id: string;
   escalatorName: string;

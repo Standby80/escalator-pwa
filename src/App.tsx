@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ChecklistPage from './pages/ChecklistPage';
+import EquipmentDetails from './pages/EquipmentDetails';
+import AddEquipment from './pages/AddEquipment';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 
@@ -22,6 +24,8 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Dashboard />} />
+          <Route path="equipment/:id" element={<EquipmentDetails />} />
+          <Route path="add-equipment" element={<AddEquipment />} />
           <Route path="checklist/:id" element={<ChecklistPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

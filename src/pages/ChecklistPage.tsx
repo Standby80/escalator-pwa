@@ -1,14 +1,30 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { defaultChecklist, assignedTasks } from '../data/mockData';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { defaultChecklist, mockEquipment } from '../data/mockData';
+import type { MaintenanceTask } from '../data/mockData';
 import { ArrowLeft, CheckCircle2, AlertCircle, Camera, FileText } from 'lucide-react';
 import { generatePDFReport } from '../lib/pdfGenerator';
 
 const ChecklistPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const task = assignedTasks.find(t => t.id === id);
+  const [searchParams] = useSearchParams();
+  const eqId = searchParams.get('eq');
+  const serviceType = searchParams.get('type') as 'A' | 'C';
+
+  const equipment = mockEquipment.find(eq => eq.id === eqId);
   
+  // Construct a temporary task object from the query params
+  const task: MaintenanceTask | null = equipment && serviceType ? {
+    id: id || 'UNKNOWN',
+    escalatorName: equipment.name,
+    location: equipment.location,
+    lastVisit: equipment.lastServiceDate || '-',
+    hasIssues: false,
+    serviceType: serviceType,
+    status: 'in-progress'
+  } : null;
+
   const [activeCategory, setActiveCategory] = useState(0);
   const [checklist, setChecklist] = useState(defaultChecklist);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
