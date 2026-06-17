@@ -7,7 +7,10 @@ const FaultCodes = () => {
   const [selectedBrand, setSelectedBrand] = useState('All');
 
   const filteredCodes = faultCodesData.filter(fc => {
-    const matchesSearch = fc.code.toLowerCase().includes(searchTerm.toLowerCase()) || fc.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const searchLower = searchTerm.toLowerCase();
+    const matchesSearch = fc.code.toLowerCase().includes(searchLower) || 
+                          fc.description.toLowerCase().includes(searchLower) ||
+                          (fc.model && fc.model.toLowerCase().includes(searchLower));
     const matchesBrand = selectedBrand === 'All' || fc.brand === selectedBrand;
     return matchesSearch && matchesBrand;
   });
@@ -23,7 +26,7 @@ const FaultCodes = () => {
         <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
         <input 
           type="text" 
-          placeholder="Sök på felkod eller beskrivning..." 
+          placeholder="Sök på felkod, modell eller beskrivning..." 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full bg-dark-card border border-dark-border rounded-xl pl-10 pr-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-orange-500 transition-colors"
@@ -37,7 +40,7 @@ const FaultCodes = () => {
             onClick={() => setSelectedBrand(brand)}
             className={`px-4 py-1.5 rounded-full text-sm font-semibold whitespace-nowrap transition-colors ${selectedBrand === brand ? 'bg-orange-500 text-white' : 'bg-dark-card border border-dark-border text-gray-400'}`}
           >
-            {brand === 'All' ? 'Alla märken' : brand}
+            {brand === 'All' ? 'Alla märken & modeller' : brand}
           </button>
         ))}
       </div>
