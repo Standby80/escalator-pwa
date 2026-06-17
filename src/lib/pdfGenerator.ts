@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { MaintenanceTask, ChecklistCategory } from '../data/mockData';
+import type { MaintenanceTask, ChecklistCategory } from '../data/mockData';
 
 export const generatePDFReport = (task: MaintenanceTask, checklist: ChecklistCategory[]) => {
   const doc = new jsPDF();
