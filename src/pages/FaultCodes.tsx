@@ -46,8 +46,8 @@ const FaultCodes = () => {
         {filteredCodes.length === 0 ? (
           <div className="text-center text-gray-500 py-10">Inga felkoder hittades.</div>
         ) : (
-          filteredCodes.map(fc => (
-            <div key={fc.code} className="bg-dark-card border border-dark-border rounded-xl p-4">
+          filteredCodes.map((fc, index) => (
+            <div key={`${fc.brand}-${fc.code}-${index}`} className="bg-dark-card border border-dark-border rounded-xl p-4">
               <div className="flex justify-between items-start mb-2 gap-2">
                 <div className="flex flex-col">
                   <span className="text-lg font-bold text-red-500 tracking-wider leading-tight">{fc.code}</span>
