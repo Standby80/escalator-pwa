@@ -5,6 +5,7 @@ export interface Equipment {
   model: string;
   lastServiceDate?: string;
   lastServiceType?: 'A' | 'C';
+  history: { date: string; type: 'A' | 'C'; technician: string }[];
 }
 
 export const mockEquipment: Equipment[] = [
@@ -14,7 +15,11 @@ export const mockEquipment: Equipment[] = [
     location: 'Terminal 3, Gate A8',
     model: 'OTIS 510-E',
     lastServiceDate: '2023-10-14',
-    lastServiceType: 'A'
+    lastServiceType: 'A',
+    history: [
+      { date: '2023-10-14', type: 'A', technician: 'Kambiz Tabrizi' },
+      { date: '2022-10-10', type: 'C', technician: 'Anders Andersson' }
+    ]
   },
   {
     id: 'EQ-002',
@@ -22,7 +27,10 @@ export const mockEquipment: Equipment[] = [
     location: 'Central Station, North Exit',
     model: 'KONE TravelMaster',
     lastServiceDate: '2023-09-02',
-    lastServiceType: 'C'
+    lastServiceType: 'C',
+    history: [
+      { date: '2023-09-02', type: 'C', technician: 'Kambiz Tabrizi' }
+    ]
   }
 ];
 

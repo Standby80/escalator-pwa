@@ -1,7 +1,16 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Plus, MapPin } from 'lucide-react';
+import { Search, Plus, MapPin, AlertCircle } from 'lucide-react';
 import { mockEquipment } from '../data/mockData';
+
+const getServiceStatusColor = (lastDate?: string) => {
+  if (!lastDate) return 'border-red-500/50 bg-red-500/5';
+  const diffTime = Math.abs(new Date().getTime() - new Date(lastDate).getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  if (diffDays > 365) return 'border-red-500/50 bg-red-500/5'; // Over 1 year
+  if (diffDays > 180) return 'border-orange-500/50 bg-orange-500/5'; // Over 6 months
+  return 'border-dark-border bg-dark-card hover:border-gray-600'; // OK
+};
 
 const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -47,20 +56,27 @@ const Dashboard = () => {
             Ingen utrustning hittades.
           </div>
         ) : (
-          filteredEquipment.map((eq) => (
-            <Link
-              key={eq.id}
-              to={`/equipment/${eq.id}`}
-              className="block bg-dark-card border border-dark-border rounded-xl p-4 active:scale-[0.98] transition-transform hover:border-gray-600"
-            >
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <span className="text-[10px] font-bold text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded block mb-1.5 w-max">
-                    {eq.id}
-                  </span>
-                  <h2 className="text-lg font-bold text-gray-100">{eq.name}</h2>
+          filteredEquipment.map((eq) => {
+            const statusClass = getServiceStatusColor(eq.lastServiceDate);
+            const needsService = statusClass.includes('red') || statusClass.includes('orange');
+
+            return (
+              <Link
+                key={eq.id}
+                to={`/equipment/${eq.id}`}
+                className={`block rounded-xl p-4 active:scale-[0.98] transition-all border ${statusClass}`}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <span className="text-[10px] font-bold text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded block mb-1.5 w-max">
+                      {eq.id}
+                    </span>
+                    <h2 className="text-lg font-bold text-gray-100 flex items-center gap-2">
+                      {eq.name}
+                      {needsService && <AlertCircle className={`w-4 h-4 ${statusClass.includes('red') ? 'text-red-500' : 'text-orange-500'}`} />}
+                    </h2>
+                  </div>
                 </div>
-              </div>
               
               <div className="flex items-center gap-1.5 text-xs text-gray-400 mt-2">
                 <MapPin className="w-3.5 h-3.5" />
@@ -78,7 +94,8 @@ const Dashboard = () => {
                 )}
               </div>
             </Link>
-          ))
+            );
+          })
         )}
       </div>
     </div>

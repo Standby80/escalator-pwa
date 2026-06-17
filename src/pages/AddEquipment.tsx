@@ -16,6 +16,7 @@ const AddEquipment = () => {
       name,
       location,
       model,
+      history: []
     };
     // In a real app we'd save to DB here. For now just push to mock array (will reset on refresh)
     mockEquipment.push(newEq);

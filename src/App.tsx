@@ -3,6 +3,8 @@ import Dashboard from './pages/Dashboard';
 import ChecklistPage from './pages/ChecklistPage';
 import EquipmentDetails from './pages/EquipmentDetails';
 import AddEquipment from './pages/AddEquipment';
+import EditEquipment from './pages/EditEquipment';
+import FaultCodes from './pages/FaultCodes';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 
@@ -25,7 +27,9 @@ function App() {
         }>
           <Route index element={<Dashboard />} />
           <Route path="equipment/:id" element={<EquipmentDetails />} />
+          <Route path="equipment/:id/edit" element={<EditEquipment />} />
           <Route path="add-equipment" element={<AddEquipment />} />
+          <Route path="fault-codes" element={<FaultCodes />} />
           <Route path="checklist/:id" element={<ChecklistPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
