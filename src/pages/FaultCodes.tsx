@@ -48,9 +48,12 @@ const FaultCodes = () => {
         ) : (
           filteredCodes.map(fc => (
             <div key={fc.code} className="bg-dark-card border border-dark-border rounded-xl p-4">
-              <div className="flex justify-between items-start mb-2">
-                <span className="text-lg font-bold text-red-500 tracking-wider">{fc.code}</span>
-                <span className="text-xs font-bold text-gray-400 bg-dark-bg px-2 py-0.5 rounded uppercase border border-dark-border">{fc.brand}</span>
+              <div className="flex justify-between items-start mb-2 gap-2">
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold text-red-500 tracking-wider leading-tight">{fc.code}</span>
+                  {fc.model && <span className="text-[10px] text-gray-500 mt-0.5 uppercase tracking-wide">{fc.model}</span>}
+                </div>
+                <span className="text-xs font-bold text-gray-400 bg-dark-bg px-2 py-0.5 rounded uppercase border border-dark-border shrink-0">{fc.brand}</span>
               </div>
               <p className="text-gray-200 text-sm mb-3">{fc.description}</p>
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3">
