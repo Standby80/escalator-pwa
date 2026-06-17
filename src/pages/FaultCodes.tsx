@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
-
-const mockFaultCodes = [
-  { code: 'E101', brand: 'KONE', description: 'Kommunikationsfel mellan moderkort och drivkrets.', solution: 'Kontrollera CanBus-kablar. Starta om systemet.' },
-  { code: 'F012', brand: 'TKE', description: 'Fel på inverter. Överspänning detekterad.', solution: 'Mät inkommande spänning. Kontrollera bromsresistor.' },
-  { code: 'ERR_04', brand: 'OTIS', description: 'Stegkedja för slapp eller bruten.', solution: 'Kontrollera kedjespänningsbrytare i nedre grop.' },
-  { code: '0032', brand: 'Schindler', description: 'Säkerhetskrets bruten vid handledarinlopp.', solution: 'Rensa handledarinloppet från skräp, återställ kontakt.' },
-];
+import { faultCodesData } from '../data/faultCodesData';
 
 const FaultCodes = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('All');
 
-  const filteredCodes = mockFaultCodes.filter(fc => {
+  const filteredCodes = faultCodesData.filter(fc => {
     const matchesSearch = fc.code.toLowerCase().includes(searchTerm.toLowerCase()) || fc.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesBrand = selectedBrand === 'All' || fc.brand === selectedBrand;
     return matchesSearch && matchesBrand;
